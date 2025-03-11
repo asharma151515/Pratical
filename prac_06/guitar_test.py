@@ -5,11 +5,9 @@ Actual time : 20 minutes
 
 from prac_06.guitar import Guitar
 
-CURRENT_YEAR = 2022
 
 def main():
     """Test the Guitar class methods."""
-    # Test get_age method
     guitar1 = Guitar("Gibson L-5 CES", 1922, 16035.40)
     print(f"{guitar1.name} get_age() - Expected 100. Got {guitar1.get_age()}.")  # Expected: 100
 
