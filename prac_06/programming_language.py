@@ -20,24 +20,3 @@ class ProgrammingLanguage:
         return self.typing == "Dynamic"
 
 
-def run_tests():
-    """Test the ProgrammingLanguage class with sample data."""
-    # Create instances of ProgrammingLanguage
-    python = ProgrammingLanguage("Python", "Dynamic", True, 1991)
-    ruby = ProgrammingLanguage("Ruby", "Dynamic", True, 1995)
-    visual_basic = ProgrammingLanguage("Visual Basic", "Static", False, 1991)
-
-    # Print string representations of the languages
-    print(python)
-    print(ruby)
-    print(visual_basic)
-
-    # Test the is_dynamic method
-    print(f"{python.name} is dynamically typed: {python.is_dynamic()}")  # Expected: True
-    print(f"{ruby.name} is dynamically typed: {ruby.is_dynamic()}")  # Expected: True
-    print(f"{visual_basic.name} is dynamically typed: {visual_basic.is_dynamic()}")  # Expected: False
-
-
-if __name__ == "__main__":
-    run_tests()
-
