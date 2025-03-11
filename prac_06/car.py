@@ -1,46 +1,33 @@
-"""CP1404/CP5632 Practical - Car class example."""
-
-
 class Car:
-    """Class to represent a car."""
+    """Represent a Car object."""
 
-    def __init__(self, name, fuel):
-        """Constructor to initialize the car's name and fuel level.
-
-        Args:
-            name (str): The name of the car.
-            fuel (float): The initial amount of fuel.
+    def __init__(self, fuel=0, name="Car"):
+        """Initialise a Car instance.
+        fuel: float, one unit of fuel drives one kilometre
+        name: str, the name of the car
         """
-        self.name = name  # Instance variable for the car's name
-        self.fuel = fuel  # Instance variable for fuel level
-        self.odometer = 0  # Instance variable for mileage
+        self.fuel = fuel
+        self._odometer = 0
+        self.name = name
 
-    def __str__(self):
-        """Return a readable string representation of the car."""
-        return f"{self.name}, fuel={self.fuel:.2f}, odometer={self.odometer}"
-
-    def __repr__(self):
-        """Return an unambiguous string representation of the car for debugging."""
-        return f"Car(name={self.name!r}, fuel={self.fuel}, odometer={self.odometer})"
+    def add_fuel(self, amount):
+        """Add amount to the car's fuel."""
+        self.fuel += amount
 
     def drive(self, distance):
-        """Method to simulate driving the car.
-
-        Args:
-            distance (float): The distance to drive.
-
-        Returns:
-            float: The actual distance driven based on available fuel.
+        """Drive the car a given distance.
+        Drive given distance if car has enough fuel
+        or drive until fuel runs out return the distance actually driven.
         """
-        fuel_needed = distance / 5  # Assume car uses 1 unit of fuel for every 5 km
-        if fuel_needed <= self.fuel:
-            self.fuel -= fuel_needed
-            self.odometer += distance
-            return distance
+        if distance > self.fuel:
+            distance = self.fuel
+            self.fuel = 0
         else:
-            distance_driven = self.fuel * 5
-            self.odometer += distance_driven
-            self.fuel = 0  # All fuel used
-            return distance_driven
+            self.fuel -= distance
+            self._odometer += distance
+        return distance
 
+    def __str__(self):
+        """Return a string representation of the Car."""
+        return f"{self.name}, fuel={self.fuel}, odometer={self._odometer}"
 
