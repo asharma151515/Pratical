@@ -1,7 +1,11 @@
 import datetime
 
+# Constants
+COMPLETED_PERCENTAGE = 100
+FILENAME = 'projects.txt'
+
 def main():
-    projects = load_projects('projects.txt')
+    projects = load_projects(FILENAME)
 
     print("\nAll Projects:")
     display_projects(projects)
@@ -14,7 +18,7 @@ def main():
     new_project = add_new_project()
     projects.append(new_project)
 
-    save_projects('projects.txt', projects)
+    save_projects('FILENAME', projects)
     print("\nProjects saved to file.")
 
 
@@ -27,7 +31,7 @@ class Project:
         self.completion_percentage = int(completion_percentage)
 
     def is_completed(self):
-        return self.completion_percentage >= 100
+        return self.completion_percentage >= COMPLETED_PERCENTAGE
 
     def __str__(self):
         return (f"{self.name}, start: {self.start_date.strftime('%d/%m/%Y')}, "
@@ -35,7 +39,7 @@ class Project:
                 f"completion: {self.completion_percentage}%")
 
 
-def load_projects(filename="projects.txt"):
+def load_projects(filename=FILENAME):
     projects = []
     with open(filename, 'r') as file:
         next(file)  # Skip the header
@@ -58,7 +62,7 @@ def save_projects(filename, projects):
 def display_projects(projects):
     for project in projects:
         print(project)
-        print()
+
 
 
 def filter_projects_by_date(projects, date):
