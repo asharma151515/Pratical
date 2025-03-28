@@ -1,0 +1,26 @@
+BoxLayout:
+    orientation: 'vertical'
+    padding: 10
+    spacing: 10
+
+    TextInput:
+        id: input_miles
+        hint_text: 'Enter miles'
+        multiline: False
+        on_text: app.calculate_kilometers()  # Automatically calculate on text change
+
+    BoxLayout:
+        orientation: 'horizontal'
+        spacing: 10
+
+        Button:
+            text: 'Up'
+            on_press: app.increment_miles(1)  # Increase miles by 1
+
+        Button:
+            text: 'Down'
+            on_press: app.increment_miles(-1)  # Decrease miles by 1
+
+    Label:
+        text: app.output_kilometers  # Displaying the output in km
+        font_size: 24
