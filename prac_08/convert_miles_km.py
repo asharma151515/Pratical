@@ -2,46 +2,44 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.properties import StringProperty
 
-MILES_TO_KM_CONVERSION_FACTOR = 1.60934
-
-
-class MilesToKilometersConverterApp(App):
-    """ Kivy App for converting miles to kilometres """
-
-    # StringProperty to automatically update the label text
-    output_kilometers = StringProperty("0.0 km")
+class MilesToKmConverter(App):
+    conversion_result = StringProperty('')
 
     def build(self):
-        """ Build the Kivy app from the kv file """
-        self.title = "Miles to Kilometres Converter"
-        return Builder.load_file('convert_miles_km.kv')
+        self.title = "Convert Miles to Kilometers "
+        self.root = Builder.load_file('convert_miles_km.kv')
+        return self.root
 
-    def calculate_kilometers(self):
-        """ Calculate kilometers from miles and update the output label """
-        miles = self.get_miles_input()
-        kilometers = miles * MILES_TO_KM_CONVERSION_FACTOR
-        self.output_kilometers = f"{kilometers:.2f} km"  # Automatically updates the label
-
-    def increment_miles(self, change):
-        """
-        Increment or decrement the miles input and recalculate
-        :param change: the amount to change (positive or negative)
-        """
-        current_miles = self.get_miles_input() + change
-        self.root.ids.input_miles.text = str(current_miles)
-        self.calculate_kilometers()
-
-    def get_miles_input(self):
-        """
-        Retrieve and validate the miles input; return 0 if invalid
-        :return: float of the input value or 0
-        """
+    def convert_miles_to_km(self):
         try:
-            text = self.root.ids.input_miles.text
-            return float(text) if text else 0  # Return 0 for empty input
+            miles = float(self.root.ids.input_miles.text)
+            kilometers = miles * 1.60934
+            self.conversion_result = f"{kilometers:.2f} km"
         except ValueError:
-            return 0
+            self.conversion_result = "Invalid input!"
 
+    def clear_input_and_result(self):
+        self.root.ids.input_miles.text = ''
+        self.conversion_result = ''
 
-if __name__ == '__main__':
-    MilesToKilometersConverterApp().run()
+    def increment_miles(self):
+        try:
+            miles = float(self.root.ids.input_miles.text)
+            miles += 1
+            self.root.ids.input_miles.text = str(miles)
+            self.convert_miles_to_km()
+        except ValueError:
+            self.root.ids.input_miles.text = '1'
+            self.convert_miles_to_km()
+
+    def decrement_miles(self):
+        try:
+            miles = float(self.root.ids.input_miles.text)
+            miles -= 1
+            self.root.ids.input_miles.text = str(miles)
+            self.convert_miles_to_km()
+        except ValueError:
+            self.root.ids.input_miles.text = '0'
+            self.convert_miles_to_km()
+
+MilesToKmConverter().run()
