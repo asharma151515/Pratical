@@ -1,12 +1,22 @@
 BoxLayout:
-    orientation: 'vertical'  # Set to vertical for vertical arrangement
+    orientation: 'vertical'
 
-    Button:
-        text: 'One'
+    TextInput:
+        id: input_name
+        hint_text: 'Enter your name'
 
-    Button:
-        text: 'Two'
+    BoxLayout:
+        orientation: 'horizontal'
 
-    Button:
-        text: 'Three'
+        Button:
+            text: 'Greet'
+            on_press: app.handle_greet()
 
+        Button:
+            text: 'Clear'
+            on_press: app.handle_clear()
+
+    Label:
+        id: output_label
+        text: ''
+        font_size: 24
