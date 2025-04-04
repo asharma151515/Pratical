@@ -17,3 +17,7 @@ class UnreliableCar(Car):
             return distance_driven
         else:
             return 0
+
+    def __str__(self):
+        """Return a string representation of the UnreliableCar."""
+        return f"{super().__str__()} (Reliability: {self.reliability}%)"
