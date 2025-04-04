@@ -14,20 +14,25 @@ class Taxi(Car):
         super().__init__(name, fuel)
         self.current_fare_distance = 0
 
-    def __str__(self):
-        """Return a string like a Car but with current fare distance."""
-        return f"{super().__str__()}, {self.current_fare_distance}km on current fare, ${self.price_per_km:.2f}/km"
+        def drive(self, distance):
+            """Drive the taxi a certain distance and accumulate fare distance."""
+            distance_driven = super().drive(distance)  # Call the parent's drive method
+            self.current_fare_distance += distance_driven  # Accumulate distance for fare
+            return distance_driven
 
-    def get_fare(self):
-        """Return the price for the taxi trip."""
-        return self.price_per_km * self.current_fare_distance
+        def start_fare(self):
+            """Reset the fare meter for a new fare."""
+            self.current_fare_distance = 0
 
-    def start_fare(self):
-        """Begin a new fare."""
-        self.current_fare_distance = 0
+        def get_fare(self):
+            """Calculate the current fare, rounded to the nearest 10 cents."""
+            fare = self.price_per_km * self.current_fare_distance
+            return round(fare + 0.05, 1)  # Round to the nearest 10 cents
 
-    def drive(self, distance):
-        """Drive like parent Car but calculate fare distance as well."""
-        distance_driven = super().drive(distance)
-        self.current_fare_distance += distance_driven
-        return distance_driven
+        def __str__(self):
+            """Return a string representation of the taxi, including fare details."""
+            fare_amount = self.get_fare()
+            return (f"{self.name}, fuel={self.fuel}, "
+                    f"odo={self.odometer}, {self.current_fare_distance}km on current fare, "
+                    f"${fare_amount} fare")
+
