@@ -9,17 +9,15 @@ def main():
     taxis = [Taxi("Prius", 100), SilverServiceTaxi("Limo", 100, 2), SilverServiceTaxi("Hummer", 200, 4)]
     current_taxi = None
     bill_to_date = 0
-    running = True  # Use a specific loop condition
-
     print("Let's drive!")
-    print("q)uit, c)hoose taxi, d)rive")  # Print the menu only once
+    print("q)uit, c)hoose taxi, d)rive")
 
-    while running:
-        choice = input(">>> ").upper()  # Handle uppercase input
+    choice = ""
+    while choice != "Q":
+        choice = input(">>> ").upper()
 
         if choice == "Q":
             print(f"Total trip cost: ${bill_to_date:.2f}")
-            running = False  # Set the loop condition False to exit
         elif choice == "C":
             print("Taxis available:")
             for i, taxi in enumerate(taxis):
@@ -28,10 +26,8 @@ def main():
                 taxi_choice = int(input("Choose taxi: "))
                 current_taxi = taxis[taxi_choice]
                 print(f"Bill to date: ${bill_to_date:.2f}")
-            except ValueError:
-                print("Invalid taxi choice. Please enter a number.")
-            except IndexError:
-                print("Invalid taxi choice. Please choose a valid taxi number.")
+            except (ValueError, IndexError):
+                print("Invalid taxi choice. Please enter a valid number.")
         elif choice == "D":
             if current_taxi is None:
                 print("You need to choose a taxi before you can drive")
