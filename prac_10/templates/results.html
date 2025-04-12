@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Results</title>
+</head>
+<body>
+    <h1>Search Results</h1>
+    <h2>{{ page.title }}</h2>
+    <p>{{ page.summary }}</p>
+    <a href="{{ page.url }}" target="_blank">Read more on Wikipedia</a><br>
+    <a href="{{ url_for('search') }}">New Search</a><br>
+    <a href="{{ url_for('home') }}">Home</a>
+</body>
+</html>
